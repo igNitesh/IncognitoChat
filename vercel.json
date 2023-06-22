@@ -2,14 +2,29 @@
   "version": 2,
   "builds": [
     {
-      "src": "daphne server.asgi:application --port $PORT --bind 0.0.0.0",
-      "use": "@vercel/python"
+      "src": "mark2/asgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.8"
+      }
+    },
+    {
+      "src": "build_files.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "staticfiles_build"
+      }
     }
   ],
   "routes": [
     {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "daphne"
+      "dest": "mark2/asgi.py"
     }
   ]
 }
