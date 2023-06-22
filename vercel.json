@@ -1,14 +1,35 @@
 {
   "version": 2,
-   "builds": [{
-        "src": "mark2/asgi.py",
-        "use": "@ardnt/vercel-python-wsgi",
-        "config": { "maxLambdaSize": "15mb" }
-    }],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "mark2/asgi.py"
-        }
-    ]
+  "builds": [
+    {
+      "src": "mark2/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "buildCommand": "python manage.py collectstatic --noinput",
+        "outputDirectory": "staticfiles"
+      }
+    },
+    {
+      "src": "mark2/asgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "outputDirectory": "public"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/staticfiles/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/asgi.py"
+    }
+  ],
+  "env": {
+    "CHANNEL_LAYERS": "[{\"name\": \"default\", \"backend\": \"channels_redis.core.RedisChannelLayer\", \"config\": {\"hosts\": [(\"127.0.0.1\", 6379)]}}]"
+  }
 }
