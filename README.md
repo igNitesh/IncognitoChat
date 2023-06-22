@@ -36,13 +36,11 @@ Follow these steps to set up and run the IncognitoChat application:
 
 1. Clone the repository:
 
-2. Install the required dependencies:
+2. Install the required dependencies `pip install requirement.txt:`
 
-3. Configure the application settings, such as database connections or API keys, in the `config.py` file.
-
-4. Start the application:
-
-5. Access the IncognitoChat application in your web browser at `http://localhost:5000`.
+3. Start the server `python manage.py runserver`
+   
+4. Access the IncognitoChat application in your web browser at `http://127.0.0.1:8000`.
 
 ## Contributing
 
