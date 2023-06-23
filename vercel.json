@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "mark2/wsgi.py",
+      "src": "mark2/asgi.py",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
